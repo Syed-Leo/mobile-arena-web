@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter Mobiles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='customer_filter.css') }}">
+</head>
+<body>
+
+<!-- FLASH POPUP -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash-popup {{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="top-bar">
+    <a href="{{ url_for('view_cart') }}" class="cart-link">
+        🛒 Cart
+        <span class="cart-badge">{{ cart_count }}</span>
+    </a>
+</div>
+
+<h2>Filter Mobiles</h2>
+
+<form method="GET" class="filter-form">
+
+    <label>Brand:</label>
+    <select name="brand">
+        <option value="">All</option>
+        <option value="Apple">Apple</option>
+        <option value="Google">Google</option>
+        <option value="Nothing">Nothing</option>
+        <option value="OnePlus">OnePlus</option>
+        <option value="Oppo">Oppo</option>
+        <option value="Realme">Realme</option>
+    </select>
+
+    <label>Price Range:</label>
+    <div class="price-range">
+        <input name="min_price" placeholder="Min Price">
+        <input name="max_price" placeholder="Max Price">
+    </div>
+
+    <label>RAM:</label>
+    <select name="ram">
+        <option value="">All</option>
+        <option value="6GB">6GB</option>
+        <option value="8GB">8GB</option>
+        <option value="12GB">12GB</option>
+    </select>
+
+    <label>Storage:</label>
+    <select name="storage">
+        <option value="">All</option>
+        <option value="128GB">128GB</option>
+        <option value="256GB">256GB</option>
+        <option value="512GB">512GB</option>
+        <option value="1TB">1TB</option>
+    </select>
+
+    <label>Network:</label>
+    <select name="network">
+        <option value="">All</option>
+        <option value="5G">5G</option>
+    </select>
+
+    <label>Battery:</label>
+    <select name="battery">
+        <option value="">All</option>
+        <option value="3500mAh">3500mAh</option>
+        <option value="3600mAh">3600mAh</option>
+        <option value="3800mAh">3800mAh</option>
+        <option value="4500mAh">4500mAh</option>
+        <option value="4700mAh">4700mAh</option>
+        <option value="4800mAh">4800mAh</option>
+        <option value="5000mAh">5000mAh</option>
+    </select>
+
+    <label>Front Camera:</label>
+    <select name="front_camera">
+        <option value="">All</option>
+        <option value="12MP">12MP</option>
+        <option value="10.5MP">10.5MP</option>
+        <option value="16MP">16MP</option>
+        <option value="32MP">32MP</option>
+        <option value="50MP">50MP</option>
+    </select>
+
+    <label>Rear Camera:</label>
+    <select name="rear_camera">
+        <option value="">All</option>
+        <option value="48MP">48MP</option>
+        <option value="50MP">50MP</option>
+        <option value="200MP">200MP</option>
+    </select>
+
+    <button type="submit" class="filter-btn">Apply Filter</button>
+</form>
+
+{% if results %}
+<h3>Results:</h3>
+
+<table class="results-table">
+<tr>
+    <th>Name</th>
+    <th>Brand</th>
+    <th>RAM</th>
+    <th>Storage</th>
+    <th>Battery</th>
+    <th>Front</th>
+    <th>Rear</th>
+    <th>Price</th>
+    <th>Action</th>
+</tr>
+
+{% for row in results %}
+<tr>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+    <td>{{ row[4] }}</td>
+    <td>{{ row[5] }}</td>
+    <td>{{ row[6] }}</td>
+    <td>{{ row[7] }}</td>
+    <td>₹{{ row[8] }}</td>
+
+    <td>
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+
+            <input type="hidden" name="product_id" value="{{ row[0] }}">
+
+            <!-- Preserve filter values -->
+            <input type="hidden" name="brand" value="{{ request.form.get('brand') }}">
+            <input type="hidden" name="min_price" value="{{ request.form.get('min_price') }}">
+            <input type="hidden" name="max_price" value="{{ request.form.get('max_price') }}">
+            <input type="hidden" name="ram" value="{{ request.form.get('ram') }}">
+            <input type="hidden" name="storage" value="{{ request.form.get('storage') }}">
+            <input type="hidden" name="network" value="{{ request.form.get('network') }}">
+            <input type="hidden" name="battery" value="{{ request.form.get('battery') }}">
+            <input type="hidden" name="front_camera" value="{{ request.form.get('front_camera') }}">
+            <input type="hidden" name="rear_camera" value="{{ request.form.get('rear_camera') }}">
+
+            <button type="submit" class="cart-btn">Add to Cart</button>
+
+        </form>
+    </td>
+
+</tr>
+{% endfor %}
+</table>
+
+{% endif %}
+
+<br>
+<a href="{{ url_for('customer_dashboard') }}">Back</a>
+
+</body>
+</html>

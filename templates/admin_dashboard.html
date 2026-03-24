@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="bubble-bg"></div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>⚙️ Admin Dashboard</h2>
+<p class="welcome">👋 Welcome, <b>{{ admin_name }}</b></p>
+
+<div class="dashboard-grid">
+
+<a href="{{ url_for('add_product') }}" class="dash-btn">➕ Add Phone</a>
+
+<a href="{{ url_for('update_price') }}" class="dash-btn">✏️ Update Phone Price</a>
+
+<a href="{{ url_for('delete_product') }}" class="dash-btn">🗑 Delete Phone</a>
+
+<a href="{{ url_for('admin_orders') }}" class="dash-btn">📦 Manage Orders</a>
+
+<a href="{{ url_for('view_database') }}" class="dash-btn">📱 View Database</a>
+
+<a href="{{ url_for('add_admin') }}" class="dash-btn">➕ Add Admin</a>
+
+<a href="{{ url_for('admin_add_customer') }}" class="dash-btn">➕ Add Customer</a>
+
+<a href="{{ url_for('view_customers') }}" class="dash-btn">👀 View Customers</a>
+
+<a href="{{ url_for('delete_customer') }}" class="dash-btn">🗑 Delete Customer</a>
+
+</div>
+
+<a href="{{ url_for('home') }}" class="logout-btn">Logout</a>
+
+</div>
+</div>
+
+<script>
+const bg = document.querySelector('.bubble-bg');
+
+for (let i = 0; i < 50; i++) {
+  const span = document.createElement('span');
+
+  const size = Math.random() * 60 + 10;
+  const left = Math.random() * 100;
+  const duration = Math.random() * 20 + 10;
+  const delay = Math.random() * -30;
+
+  span.style.width = size + "px";
+  span.style.height = size + "px";
+  span.style.left = left + "%";
+  span.style.animationDuration = duration + "s";
+  span.style.animationDelay = delay + "s";
+
+  bg.appendChild(span);
+}
+</script>
+
+</body>
+</html>

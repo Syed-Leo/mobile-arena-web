@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Phone | Mobile Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='customer_search.css') }}">
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div id="flash-popup" class="flash-popup {{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="bubble-bg"></div>
+
+<div class="content">
+    <div class="glass-card">
+
+        <!-- CART BUTTON -->
+        <div style="display:flex; justify-content:flex-end; margin-bottom:15px;">
+            <a href="{{ url_for('view_cart') }}"
+               style="text-decoration:none; font-weight:600; position:relative;">
+                🛒 Cart
+                <span style="
+                    background:#ff3b3b;
+                    color:white;
+                    padding:4px 8px;
+                    border-radius:20px;
+                    font-size:12px;
+                    margin-left:6px;">
+                    {{ cart_count }}
+                </span>
+            </a>
+        </div>
+
+        <h2 class="title">🔍 Search Mobile</h2>
+
+        <!-- SEARCH FORM -->
+        <form method="GET" action="{{ url_for('customer_search') }}" class="search-form">
+            <input type="text" name="product_name" placeholder="Enter Phone Name"
+                   value="{{ request.args.get('product_name','') }}">
+            <button type="submit" class="btn">Search</button>
+        </form>
+
+
+        {% if results %}
+        <div class="results-section">
+            <h3 class="results-title">Results</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>RAM</th>
+                            <th>Storage</th>
+                            <th>OS</th>
+                            <th>Network</th>
+                            <th>Front Cam</th>
+                            <th>Rear Cam</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for row in results %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>{{ row[7] }}</td>
+                            <td class="price">₹{{ row[8] }}</td>
+
+                            <!-- ADD TO CART -->
+                            <td>
+                                <form method="POST" action="{{ url_for('add_to_cart') }}">
+                                    <input type="hidden" name="product_id" value="{{ row[0] }}">
+                                    <button type="submit" class="cart-btn">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        
+        <a href="{{ url_for('customer_dashboard') }}" class="back-btn">
+            ⬅ Back to Dashboard
+        </a>
+
+    </div>
+</div>
+
+<script>
+
+setTimeout(function() {
+    const flash = document.getElementById("flash-popup");
+    if (flash) {
+        flash.style.display = "none";
+    }
+}, 3000);
+
+const bg = document.querySelector('.bubble-bg');
+for (let i = 0; i < 50; i++) {
+    const span = document.createElement('span');
+    const size = Math.random() * 60 + 10;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * -30;
+
+    span.style.width = `${size}px`;
+    span.style.height = `${size}px`;
+    span.style.left = `${left}%`;
+    span.style.animationDuration = `${duration}s`;
+    span.style.animationDelay = `${delay}s`;
+
+    bg.appendChild(span);
+}
+</script>
+
+</body>
+</html>

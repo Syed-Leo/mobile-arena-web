@@ -1,0 +1,129 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Space Grotesk',sans-serif;
+}
+
+body{
+background: radial-gradient(circle at center,#0a1f44,#020b1c);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+padding:60px 0;
+color:white;
+overflow-y:auto;
+}
+
+/* bubbles */
+
+.bubble-bg{
+position:fixed;
+inset:0;
+z-index:0;
+overflow:hidden;
+}
+
+.bubble-bg span{
+position:absolute;
+bottom:-100px;
+border-radius:50%;
+background:rgba(90,180,255,0.15);
+animation:rise linear infinite;
+}
+
+@keyframes rise{
+0%{transform:translateY(0);opacity:0;}
+50%{opacity:0.5;}
+100%{transform:translateY(-120vh);opacity:0;}
+}
+
+/* card */
+
+.container{
+position:relative;
+z-index:1;
+width:100%;
+max-width:450px;
+}
+
+.card{
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(15px);
+padding:40px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
+text-align:center;
+}
+
+/* title */
+
+h2{
+margin-bottom:25px;
+letter-spacing:2px;
+}
+
+/* form */
+
+.form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* inputs */
+
+input, select{
+padding:12px;
+border-radius:6px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+}
+
+/* dropdown options */
+
+select option{
+background:#1b2d4b;
+color:white;
+}
+
+/* button */
+
+button{
+padding:14px;
+background:#5ab4ff;
+border:none;
+border-radius:6px;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:white;
+color:#020b1c;
+}
+
+/* message */
+
+.msg{
+margin-top:10px;
+color:#7effa7;
+}
+
+/* back */
+
+.back-btn{
+display:block;
+margin-top:20px;
+color:#74b9ff;
+text-decoration:none;
+}
+
+.back-btn:hover{
+text-decoration:underline;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details | Mobile Arena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='order_details.css') }}">
+</head>
+<body>
+
+<div class="bubble-bg"></div>
+
+<div class="content">
+    <div class="glass-card">
+
+        <h2 class="title">🧾 Order Details</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for item in items %}
+                <tr>
+
+                    <td>
+                        <div class="product-info">
+                            <span class="product-name">{{ item[0] }}</span>
+                            <span class="product-spec">
+                                RAM: {{ item[1] }} | Storage: {{ item[2] }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td class="qty">
+                        {{ item[3] }}
+                    </td>
+
+                    <td class="price">
+                        ₹{{ item[4] }}
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('customer_orders') }}" class="back-btn">
+            ⬅ Back to Orders
+        </a>
+
+    </div>
+</div>
+
+
+<script>
+const bg = document.querySelector('.bubble-bg');
+
+for (let i = 0; i < 50; i++) {
+
+    const span = document.createElement('span');
+
+    const size = Math.random() * 60 + 10;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * -30;
+
+    span.style.width = `${size}px`;
+    span.style.height = `${size}px`;
+    span.style.left = `${left}%`;
+    span.style.animationDuration = `${duration}s`;
+    span.style.animationDelay = `${delay}s`;
+
+    bg.appendChild(span);
+}
+</script>
+
+</body>
+</html>

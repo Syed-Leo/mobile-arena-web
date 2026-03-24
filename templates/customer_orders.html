@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Orders | Mobile Arena</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='customer_orders.css') }}">
+
+</head>
+
+<body>
+
+<div class="bubble-bg"></div>
+
+<div class="content">
+<div class="glass-card">
+
+<h2 class="title">📦 My Orders</h2>
+
+{% if orders %}
+
+{% for order in orders %}
+
+<div class="order-block">
+
+<!-- ORDER HEADER -->
+<div class="order-header">
+
+<div>
+<b>Order #{{ order.order_id }}</b><br>
+<small>{{ order.date }}</small>
+</div>
+
+<div>
+
+<span class="status">{{ order.status }}</span>
+
+{% if order.status == "PENDING" or order.status == "SHIPPING" %}
+
+<form method="POST" action="{{ url_for('cancel_order') }}" style="display:inline;">
+<input type="hidden" name="order_id" value="{{ order.order_id }}">
+<button class="cancel-btn">Cancel Order</button>
+</form>
+
+{% elif order.status == "CANCELLED" or order.status == "DELIVERED" %}
+
+<form method="POST" action="{{ url_for('delete_order') }}" style="display:inline;">
+<input type="hidden" name="order_id" value="{{ order.order_id }}">
+<button class="delete-btn" onclick="return confirm('Delete this order permanently?')">Delete</button>
+</form>
+
+{% endif %}
+
+</div>
+
+</div>
+
+
+<!-- ORDER PRODUCTS -->
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Product</th>
+<th>Quantity</th>
+<th>Price</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for item in order.products %}
+
+<tr>
+
+<td>
+<div class="product-info">
+
+<div class="product-name">
+{{ item.product_name }}
+</div>
+
+<div class="product-spec">
+RAM: {{ item.ram }} | Storage: {{ item.storage }}
+</div>
+
+</div>
+</td>
+
+<td>{{ item.quantity }}</td>
+
+<td class="price">₹{{ item.price }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p class="no-orders">No orders placed yet.</p>
+
+{% endif %}
+
+<div class="button-column">
+
+<a href="{{ url_for('order_history') }}" class="back-btn">
+📜 View Full Order History
+</a>
+
+<a href="{{ url_for('customer_dashboard') }}" class="back-btn">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+const bg = document.querySelector('.bubble-bg');
+
+for (let i = 0; i < 50; i++) {
+
+const span = document.createElement('span');
+
+const size = Math.random() * 60 + 10;
+const left = Math.random() * 100;
+const duration = Math.random() * 20 + 10;
+const delay = Math.random() * -30;
+
+span.style.width = `${size}px`;
+span.style.height = `${size}px`;
+span.style.left = `${left}%`;
+span.style.animationDuration = `${duration}s`;
+span.style.animationDelay = `${delay}s`;
+
+bg.appendChild(span);
+
+}
+
+</script>
+
+</body>
+</html>

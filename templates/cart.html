@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+</head>
+<body>
+
+<h2>🛒 Your Cart</h2>
+
+{% if cart %}
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    <th>Remove</th>
+</tr>
+
+{% for item in cart %}
+<tr>
+
+<td>
+<b>{{ item.product_name }}</b><br>
+<small>{{ item.ram }} / {{ item.storage }}</small>
+</td>
+
+<td>₹{{ item.price }}</td>
+
+<td>
+<div class="qty-controls">
+
+<!-- Decrease -->
+<form method="POST" action="{{ url_for('update_cart') }}">
+<input type="hidden" name="product_id" value="{{ item.product_id }}">
+<input type="hidden" name="action" value="decrease">
+<button type="submit" class="qty-btn minus">−</button>
+</form>
+
+<span class="qty-number">{{ item.quantity }}</span>
+
+<!-- Increase -->
+<form method="POST" action="{{ url_for('update_cart') }}">
+<input type="hidden" name="product_id" value="{{ item.product_id }}">
+<input type="hidden" name="action" value="increase">
+<button type="submit" class="qty-btn plus">+</button>
+</form>
+
+</div>
+</td>
+
+<td>₹{{ item.subtotal }}</td>
+
+<td>
+<form method="POST" action="{{ url_for('remove_from_cart') }}">
+<input type="hidden" name="product_id" value="{{ item.product_id }}">
+<button type="submit" class="remove-btn">🗑</button>
+</form>
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+<h3>Total: ₹{{ total }}</h3>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+
+<form method="POST" action="{{ url_for('checkout') }}">
+    <button type="submit">Place Order</button>
+</form>
+
+
+<br>
+<a href="{{ url_for('customer_dashboard') }}">Back</a>
+
+</body>
+</html>

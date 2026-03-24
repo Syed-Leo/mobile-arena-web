@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Phone Database</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='admin_database.css') }}">
+
+</head>
+
+<body>
+
+  <div class="bubble-bg"></div>
+
+<h2>📱 Phone Database</h2>
+
+<form method="POST">
+
+<select name="brand_id" required>
+
+<option value="">Select Brand</option>
+
+{% for brand in brands %}
+<option value="{{ brand[0] }}">{{ brand[1] }}</option>
+{% endfor %}
+
+</select>
+
+<button type="submit">View Phones</button>
+
+</form>
+
+
+{% if phones %}
+
+<table border="1" cellpadding="10">
+
+<tr>
+<th>Phone</th>
+<th>RAM</th>
+<th>Storage</th>
+<th>Battery</th>
+<th>Network</th>
+<th>Front Cam</th>
+<th>Rear Cam</th>
+<th>Price</th>
+</tr>
+
+{% for phone in phones %}
+
+<tr>
+
+<td>{{ phone[0] }}</td>
+<td>{{ phone[1] }}</td>
+<td>{{ phone[2] }}</td>
+<td>{{ phone[3] }}</td>
+<td>{{ phone[4] }}</td>
+<td>{{ phone[5] }}</td>
+<td>{{ phone[6] }}</td>
+<td>₹{{ phone[7] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endif %}
+
+<br>
+
+<a href="{{ url_for('admin_dashboard') }}">⬅ Back</a>
+
+<script>
+const bg = document.querySelector('.bubble-bg');
+
+for (let i = 0; i < 50; i++) {
+  const span = document.createElement('span');
+
+  const size = Math.random() * 60 + 10;
+  const left = Math.random() * 100;
+  const duration = Math.random() * 20 + 10;
+  const delay = Math.random() * -30;
+
+  span.style.width = size + "px";
+  span.style.height = size + "px";
+  span.style.left = left + "%";
+  span.style.animationDuration = duration + "s";
+  span.style.animationDelay = delay + "s";
+
+  bg.appendChild(span);
+}
+</script>
+
+</body>
+</html>

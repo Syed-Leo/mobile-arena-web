@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Dashboard | Mobile Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='customer_dashboard.css') }}">
+</head>
+<body>
+
+  <div class="bubble-bg"></div>
+
+  <div class="content">
+    <div class="glass-card">
+
+
+      <h2 class="title">Customer Dashboard</h2>
+      <p class="welcome-text">Welcome!</p>
+
+
+      <div class="dashboard-buttons">
+        <a href="{{ url_for('customer_search') }}" class="dash-btn">🔍 Search Phone</a>
+        <a href="{{ url_for('customer_filter') }}" class="dash-btn">⚙ Filter Search</a>
+        <a href="{{ url_for('customer_orders') }}" class="dash-btn">📦 My Orders</a>
+
+        <!-- CART BUTTON -->
+        <a href="{{ url_for('view_cart') }}" class="dash-btn">
+        🛒 View Cart ({{ cart_count }})
+        </a>
+
+        <a href="{{ url_for('home') }}" class="logout-btn">Logout</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const bg = document.querySelector('.bubble-bg');
+    for (let i = 0; i < 50; i++) {
+      const span = document.createElement('span');
+      const size = Math.random() * 60 + 10;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 20 + 10;
+      const delay = Math.random() * -30;
+
+      span.style.width = `${size}px`;
+      span.style.height = `${size}px`;
+      span.style.left = `${left}%`;
+      span.style.animationDuration = `${duration}s`;
+      span.style.animationDelay = `${delay}s`;
+
+      bg.appendChild(span);
+    }
+  </script>
+
+</body>
+</html>

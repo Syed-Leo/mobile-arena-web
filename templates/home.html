@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile Arena</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+
+  <!-- Space Grotesk (Porsche-style alternative) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Bubble Background -->
+  <div class="bubble-bg"></div>
+
+  <div class="content">
+    <h1 class="title">Mobile Arena</h1>
+
+    <div class="buttons">
+      <a href="{{ url_for('admin_login') }}" class="btn"><i class="fas fa-user-shield"></i> Admin</a>
+      <a href="{{ url_for('customer_login') }}" class="btn"><i class="fas fa-user"></i> Customer</a>
+    </div>
+  </div>
+
+<script>
+  const bg = document.querySelector('.bubble-bg');
+  const bubbleCount = 50; // Increase this number if you want even more bubbles
+
+  for (let i = 0; i < bubbleCount; i++) {
+    const span = document.createElement('span');
+    
+    // Randomize properties for true separation
+    const size = Math.random() * 60 + 10; // Size between 10px and 70px
+    const left = Math.random() * 100; // Position anywhere from 0% to 100% width
+    const duration = Math.random() * 20 + 10; // Speed between 10s and 30s
+    const delay = Math.random() * -30; // Negative delay so they start immediately all over
+    
+    // Apply the random values
+    span.style.width = `${size}px`;
+    span.style.height = `${size}px`;
+    span.style.left = `${left}%`;
+    span.style.animationDuration = `${duration}s`;
+    span.style.animationDelay = `${delay}s`;
+    
+    bg.appendChild(span);
+  }
+</script>
+</body>
+</html>

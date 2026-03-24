@@ -1,0 +1,148 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Space Grotesk',sans-serif;
+}
+
+/* PAGE */
+
+body{
+min-height:100vh;
+background: radial-gradient(circle at center,#0a1f44,#020b1c);
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:60px 20px;
+color:white;
+overflow-y:auto;
+}
+
+/* TITLE */
+
+h2{
+margin-bottom:30px;
+letter-spacing:2px;
+background:linear-gradient(to bottom,#ffffff 40%,#74b9ff 100%);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* FORM */
+
+form{
+display:flex;
+gap:15px;
+margin-bottom:35px;
+}
+
+select{
+padding:12px 15px;
+border-radius:6px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+}
+
+select option{
+background:#1b2d4b;
+color:white;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:6px;
+background:#5ab4ff;
+font-weight:700;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:white;
+color:#020b1c;
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(90,180,255,0.4);
+}
+
+/* TABLE */
+
+table{
+width:90%;
+max-width:1100px;
+border-collapse:collapse;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(15px);
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+th{
+background:rgba(255,255,255,0.08);
+padding:14px;
+text-align:left;
+font-weight:600;
+}
+
+td{
+padding:14px;
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+tr:hover{
+background:rgba(255,255,255,0.05);
+}
+
+/* PRICE COLUMN */
+
+td:last-child{
+color:#6ec8ff;
+font-weight:600;
+}
+
+/* BACK BUTTON */
+
+a{
+display:inline-block;
+margin-top:30px;
+padding:10px 20px;
+border-radius:6px;
+background:rgba(255,255,255,0.1);
+color:#74b9ff;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+a:hover{
+background:#ffffff;
+color:#020b1c;
+}
+
+/* BUBBLE BACKGROUND */
+
+.bubble-bg{
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-1;
+}
+
+.bubble-bg span{
+position:absolute;
+bottom:-100px;
+border-radius:50%;
+background:rgba(90,180,255,0.15);
+box-shadow:0 0 12px rgba(90,180,255,0.15);
+animation:rise linear infinite;
+}
+
+@keyframes rise{
+0%{transform:translateY(0);opacity:0;}
+10%{opacity:0.6;}
+90%{opacity:0.6;}
+100%{transform:translateY(-120vh);opacity:0;}
+}
